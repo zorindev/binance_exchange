@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Trading Platform</title>
+		
+		
+		
+	
+		<script type="text/javascript">
+    
+		</script>
+	
+	</head>
+<body>
+
+	<div class='main' id='main' >
+	
+		<div class="inputs" id="" >
+			<ul>
+				<li>
+					<span class="input_label"> Number of periods </span>
+					<input type="text" class="input" id="input_number_of_periods" />
+					
+					<span class="input_label"> Period </span>
+					<input type="text" class="input" id="input_period_type" />
+					
+					<span class="input_label"> Rolling window </span>
+					<input type="text" class="input" id="input_rolling_window" />
+					
+				</li>
+			</ul>
+		</div>
+		
+		<div class="ctrl" id="ctrl">
+			<input type="button" id="btn_start" value="start" />
+			<input type="button" id="btn_stop" value="stop" />
+		</div>	
+		
+		<div class="plot" id="price">
+		
+		</div>
+		
+		<div class="plot" id="stochastic">
+		
+		</div>
+		
+			
+		<div class='json_log'>
+		...
+		</div>
+	</div>
+	
+</body>
+
+
+	<script src="{{ static_url("js/jquery-3.4.0.min.js") }}" type="text/javascript"></script>
+	<script src="{{ static_url("js/plotly-latest.min.js") }}" type="text/javascript"></script>
+	<script src="{{ static_url("js/app.js") }}" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="{{ static_url("css/index.css") }} "></link>
+	
+</html>

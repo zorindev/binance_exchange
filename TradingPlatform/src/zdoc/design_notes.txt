@@ -1,0 +1,67 @@
+		States:
+			
+			state 0 - submit a new buy order:
+				
+				get maximum amount of minute periods from history and store in a dataframe
+				
+				calculate bolinger and stochastic columns in the above dataframe
+				
+				set historical signals in the dataframe
+				
+				identify the latest historical entry
+				
+				calculate signal:
+				
+					if latest_closing_price < bolinger_low and k < 20 and d < k:
+						
+						calculate entry position:
+							amount of asset
+							price - how much are you willing to increase the max bid for to succeed at buying 
+							
+						plase order
+						
+						go to state 1
+						
+						
+			state 1 - wait for the buy order to finish:
+			
+				check status of placed order
+				
+				if order completed
+					go to state 2
+					
+				else if order age exceeds 1 hour:
+					cancel order
+					
+					go to state 0
+					
+					
+			
+			state 2 - submit a new sell order:
+			
+				get maximum amount of minute periods from history and store in a dataframe
+				
+				calculate bolinger and stochastic columns in the above dataframe
+				
+				set historical signals in the dataframe
+				
+				identify the latest historical entry
+			
+				if conditions for short entry do not occur for 1 hour:
+					set the sell price to 1% profit
+					enter selling position	
+						
+					go to step 0
+					
+				calculate signal:
+					
+					if latest_close < bollinger_high and latest_close is < k and d > k and k > 80:
+					
+						calculate entry position:
+						
+							how much are you willing to decrease the asking price to ensure the sell
+							
+						if position entry is older than 1 hour:
+							leave short as is and go to step 0
+						
+						
