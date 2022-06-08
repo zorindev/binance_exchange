@@ -3,61 +3,434 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Trading Platform</title>
-		
-		
-		
-	
 		<script type="text/javascript">
-    
 		</script>
-	
 	</head>
 <body>
 
 	<div class='main' id='main' >
 	
-		<div class="inputs" id="" >
-			<ul>
-				<li>
-					<span class="input_label"> Number of periods </span>
-					<input type="text" class="input" id="input_number_of_periods" />
-					
-					<span class="input_label"> Period </span>
-					<input type="text" class="input" id="input_period_type" />
-					
-					<span class="input_label"> Rolling window </span>
-					<input type="text" class="input" id="input_rolling_window" />
-					
-				</li>
-			</ul>
-		</div>
+		<div class="input_cntr ctrl_div" id="input_cntr_market" >
 		
-		<div class="ctrl" id="ctrl">
-			<input type="button" id="btn_start" value="start" />
-			<input type="button" id="btn_stop" value="stop" />
-		</div>	
-		
-		<div class="plot" id="price">
-		
-		</div>
-		
-		<div class="plot" id="stochastic">
-		
-		</div>
-		
+				<span class="input_label section_label"> Market Settings </span>
 			
-		<div class='json_log'>
-		...
+				<div class="input_field_cntr" >
+					<span class="input_label"> Market </span>
+					<select class="input_field" id="input_market_select" >
+						<option value="" selected=""></option>
+					    <option label="BTCUSDT" value="BTCUSDT">BTCUSDT</option>
+					    <option label="ETHUSDT" value="ETHUSDT">ETHUSDT</option>
+					    <option label="XRPUSDT" value="XRPUSDT">XRPUSDT</option>
+					    <option label="USDCUSDT" value="USDCUSDT">USDCUSDT</option>
+					    <option label="PAXUSDT" value="PAXUSDT">PAXUSDT</option>
+					    <option label="TUSDUSDT" value="TUSDUSDT">TUSDUSDT</option>
+					    <option label="BUSDUSDT" value="BUSDUSDT">BUSDUSDT</option>
+					    <option label="USDCPAX" value="USDCPAX">USDCPAX</option>
+					</select>
+				</div>
+			
+			<!-- 
+			0.001
+			0.00075
+			
+			fee example: 20.2771 USDT * 0.00075 = 0.01557825 At the time BNB was 10.3159, then the fee is 0.01557825 USDT / 10.3159 =? 0.00147235
+			
+			-->
+									
+			<div class="input_field_cntr" >
+				<span class="input_label"> Starting Amount </span>
+				<input class="input_field px126" id="input_starting_amount" name="input_starting_amount" value="12.00"></input>	
+			</div>
+			
+			<div class="input_field_cntr" id="error_cntr" >
+				<span class="input_label"> Error </span>
+				<div class="error_content" id="error_content">
+					<pre id="pre_error_content">
+					   .
+					   .
+					   .
+					</pre>
+				 </div>	
+			</div>
+			
+		</div>
+		
+		<div class="input_cntr" id="input_cntr_bollinger" >
+			<span class="input_label section_label"> Bollinger Settings </span>
+			<div class="input_div_cntr" >
+				<div class="input_field_cntr">
+					<span class="input_label"> Number of periods </span>
+					<input type="text" class="input_field px126" id="input_number_of_periods" value="500" />
+				</div>
+				
+				<div class="input_field_cntr" >
+					<span class="input_label"> Period type </span>
+					<select class="input_field" id="input_period_select_type" >
+					    <option value="1m" selected="1m">1m</option>
+					    <option label="1m" value="1m">1m</option>
+					    <option label="3m" value="3m">3m</option>
+					    <option label="5m" value="5m">5m</option>
+					    <option label="15m" value="15m">15m</option>
+					    <option label="30m" value="30m">30m</option>
+					    <option label="1h" value="1h">1h</option>
+					    <option label="1d" value="1d">1d</option>
+					</select>
+				</div>
+				
+				<div class="input_field_cntr" >
+					<span class="input_label"> Bollinger Rolling Window </span>
+					<input type="text" class="input_field px126" id="input_bollinger_rolling_window" value="21" />
+				</div>
+				
+				<div class="input_field_cntr" >
+					<span class="input_label"> Signal Threshold Size </span>
+					<input type="text" class="input_field px126" id="input_threshold" value="0.0" />
+				</div>
+			</div>	
+		</div>
+		
+		
+		<div class="input_cntr">
+		
+			<span class="input_label section_label"> Stoch RSI Settings </span>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> RSI Period </span>
+				<input type="text" class="input_field px126" id="rsi_period" value="14" />
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Stoch Period </span>
+				<input type="text" class="input_field px126" id="stoch_period" value="14" />
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Smooth K </span>
+				<input type="text" class="input_field px126" id="smooth_k" value="6" />
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Smooth D </span>
+				<input type="text" class="input_field px126" id="smooth_d" value="3" />
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Entry Boundary </span>
+				<input type="text" class="input_field px126" id="stoch_rsi_entry_level" value="0.2" />
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Exit Boundary </span>
+				<input type="text" class="input_field px126" id="stoch_rsi_exit_level" value="0.8" />
+			</div>
+		</div>
+		
+		<div class="input_cntr">
+		
+			<span class="input_label section_label"> SMA Settings </span>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> SMA periods </span>
+				<input type="text" class="input_field px126" id="input_ctrl_sma_window" value="150" />
+			</div>
+		</div>
+		
+		<!-- 
+		<div class="input_cntr">
+			<span class="input_label section_label"> Strategy Settings </span>
+
+			<div class="input_field_cntr" >
+				<span class="input_label"> Position re-entry levels </span>
+				<input type="text" class="input_field px126" id="price_position_reentry_levels" value="1" />
+			</div>
+					
+			<div class="input_field_cntr" >
+				<span class="input_label"> Position TTL in minutes </span>
+				<input class="input_field px126" id="input_position_ttl" name="input_position_ttl" value="1440"></input>
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Target Profit Margin </span>	
+				<input class="input_field px126" id="input_target_profit" name="input_target_profit" value="0.002"></input>
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Entry Price MA RW </span>
+				<input class="input_field px126" id="input_entry_price_ma_rolling_window" name="input_entry_price_ma_rolling_window" value="5"></input>
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Price ROC Threshold </span>
+				<input class="input_field px126" id="input_price_roc_th" name="input_price_roc_th" value="-0.005"></input>
+			</div>
+			
+			<div class="input_field_cntr" >
+				<span class="input_label"> Controlling SMA Window </span>
+				<input class="input_field px126" id="input_ctrl_sma_window" name="input_ctrl_sma_window" value="150"></input>
+			</div>		
+		</div>
+		
+		 -->
+		 
+		 
+		
+		
+		<div class="input_cntr explain_div" >			
+			<span class="input_label section_label"> Controls </span>
+			
+			
+			<!--  div class="input_field_cntr">
+			
+				<span class="input_label"> Enable Full DF Scan </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_full_df_scan" class="input_switch" >
+				  <span class="slider"></span>
+				</label>
+			</div -->
+			
+			
+			<div class="input_field_cntr">
+			
+				<span class="input_label"> Evaluate Bollinger </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_bollinger" class="input_switch" >
+				  <span class="slider"></span>
+				</label>
+			</div>
+			
+			
+			<!-- 
+			
+				if bollinger is disabled:
+					evaluate SMA options:
+					
+						25 is larger than CTRL: buy
+						
+						25 is smaller than STRL: sell
+						
+				if bollinger is enabled:
+				
+					evaluate only of CTRL sma is positive
+			 -->
+			
+			<div class="input_field_cntr">
+			
+				<span class="input_label"> Evaluate StochRSI </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_stoch_rsi" class="input_switch" >
+				  <span class="slider"></span>
+				</label>
+			</div>
+			
+			
+			<div class="input_field_cntr">
+			
+				<span class="input_label"> Evaluate SMA </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_sma" class="input_switch" >
+				  <span class="slider"></span>
+				</label>
+			</div>
+			
+			
+			<div class="input_field_cntr">
+			
+				<span class="input_label"> Live Data </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_live_data" class="input_switch" >
+				  <span class="slider"></span>
+				</label>
+			</div>
+			
+			
+			<div class="input_field_cntr" id="static_df_period_cntr" >
+				<span class="input_label"> Static DF period </span>
+				<input type="text" class="input_field px126" id="static_df_period" value="2020/05/07/01" />
+			</div>
+			
+			
+			<div class="input_field_cntr">
+			
+				<span class="input_label"> Enable Transactions </span>
+				
+				<label class="switch">
+				  <input type="checkbox" id="enable_transactions" class="input_switch" disabled>
+				  <span class="slider"></span>
+				</label>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Start </span>
+				<input class="ctrl_button" type="button" id="btn_start" value="start" />
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Stop </span>
+				<input class="ctrl_button" type="button" id="btn_stop" value="stop" />
+			</div>
+			
+		</div>
+			
+		<div class="clear-1"></div>
+		<div class="plot_cntr" id="plot_cntr_boll" ></div>
+		
+		<div class="stats_cntr" id="stats_cntr">
+			
+			<span class="input_label section_label"> Cycle Stats </span>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Cycle Profit </span>
+				<span id="stats_cycle_profit" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Cycle Duration </span>
+				<span id="stats_cycle_duration" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Entry Price </span>
+				<span id="stats_target_entry_price" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Units Bought and Sold </span>
+				<span id="stats_target_units_bought" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Exit Price </span>
+				<span id="stats_target_profit_price" class="stats_field"></span>
+			</div>
+			
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Buy Fee </span>
+				<span id="stats_buy_fee" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Sell Fee </span>
+				<span id="stats_sell_fee" class="stats_field"></span>
+			</div>
+			
+		</div>
+		
+		
+		<div class="stats_cntr" id="stats_cntr_2">
+			
+			<span class="input_label section_label"> Total Stats </span>
+			
+			<!-- div class="input_field_cntr">
+				<span class="input_label"> Total Profit </span>
+				<span id="stats_profit" class="stats_field"></span>
+			</div -->
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Avg. Cycle Duration </span>
+				<span id="stats_avg_cycle_duration" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Avg. Gain/Loss </span>
+				<span id="stats_avg_gain" class="stats_field"></span>
+			</div>
+			
+			
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Cycle Count </span>
+				<span id="stats_cycle_count" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Total Duration </span>
+				<span id="stats_total_duration" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Average Entry Price </span>
+				<span id="stats_average_purchase_price" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Average Units Bought and Sold </span>
+				<span id="stats_average_units_bought" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Average Exit Price </span>
+				<span id="stats_average_sale_price" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> SMA State </span>
+				<span id="stats_sma_delta" class="stats_field"></span>
+			</div>
+			
+			
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Current Close </span>
+				<span id="stats_current_close" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> Boll Low </span>
+				<span id="stats_boll_low" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> StochRSI K </span>
+				<span id="stats_stoch_k" class="stats_field"></span>
+			</div>
+			
+			<div class="input_field_cntr">
+				<span class="input_label"> StochRSI D </span>
+				<span id="stats_stoch_d" class="stats_field"></span>
+			</div>
+			
+			
+			
+		</div>  
+		
+		<div class="clear-1"></div>
+		<div class='json_log_cntr'>
+			
 		</div>
 	</div>
 	
 </body>
 
 
+	<script src="{{ static_url("js/lightweight-charts.standalone.production.js") }}" type="text/javascript"></script>
 	<script src="{{ static_url("js/jquery-3.4.0.min.js") }}" type="text/javascript"></script>
 	<script src="{{ static_url("js/plotly-latest.min.js") }}" type="text/javascript"></script>
 	<script src="{{ static_url("js/app.js") }}" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="{{ static_url("css/index.css") }} "></link>
+	
+	<script>
+	
+	const chart = LightweightCharts.createChart(document.body, { width: 400, height: 300 });
+	const lineSeries = chart.addLineSeries();
+	lineSeries.setData([
+	    { time: '2019-04-11', value: 80.01 },
+	    { time: '2019-04-12', value: 96.63 },
+	    { time: '2019-04-13', value: 76.64 },
+	    { time: '2019-04-14', value: 81.89 },
+	    { time: '2019-04-15', value: 74.43 },
+	    { time: '2019-04-16', value: 80.01 },
+	    { time: '2019-04-17', value: 96.63 },
+	    { time: '2019-04-18', value: 76.64 },
+	    { time: '2019-04-19', value: 81.89 },
+	    { time: '2019-04-20', value: 74.43 },
+	]);
+	</script>
 	
 </html>

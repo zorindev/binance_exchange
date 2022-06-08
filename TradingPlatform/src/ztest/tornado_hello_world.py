@@ -43,7 +43,7 @@ def get_start_time(sma_size, period):
 client = Client("l2ortiH8RTYzQNZsprkygTgbFg7Q7W1aZ3k8rX5IL0lC3NaEbnFI5chQOHCqhB86", "qbvaOxtXTjyVIteO5jHAdxoYHYaIma5Ez8SRkGISnpy0o3V7Li0OYzfBexnMom8h")
 
 
-start_time = long(str(get_start_time(10, "1m")) + "000")
+start_time = int(str(get_start_time(10, "1m")) + "000")
 
 print start_time
 
